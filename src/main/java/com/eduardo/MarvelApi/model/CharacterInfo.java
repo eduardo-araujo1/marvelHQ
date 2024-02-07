@@ -24,4 +24,6 @@ public class CharacterInfo {
     private String hability;
     @Column(name = "history")
     private String history;
+    @Column(name = "image")
+    private String image;
 }
