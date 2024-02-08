@@ -32,4 +32,16 @@ public class HQController {
         return ResponseEntity.ok().body(returnAll);
     }
 
+    @GetMapping(params = "name")
+    public ResponseEntity<HQDTO> findByName(@RequestParam("name") String name){
+        var hqDto = service.findByName(name);
+        return ResponseEntity.ok().body(hqDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<HQDTO> updateHQ(@PathVariable Long id, @RequestBody HQDTO hqdto){
+        var updateHqdto = service.updateHQ(id,hqdto);
+        return ResponseEntity.ok(updateHqdto);
+    }
+
 }
