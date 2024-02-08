@@ -37,7 +37,7 @@ public class HQDTO {
     @NotBlank
     private String image;
 
-    @Positive
+    @Positive(message = "O valor não pode ser negativo")
     @NotNull
     private Double price;
 

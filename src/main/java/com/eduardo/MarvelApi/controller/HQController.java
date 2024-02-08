@@ -5,6 +5,7 @@ import com.eduardo.MarvelApi.services.HQService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -44,6 +45,14 @@ public class HQController {
         return ResponseEntity.ok(updateHqdto);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<Page<HQDTO>> filterHQsByPrice(
+            @RequestParam Double minPrice,
+            @RequestParam Double maxPrice,
+            Pageable pageable) {
+        Page<HQDTO> hqs = service.findHQsByPrice(minPrice, maxPrice, pageable);
+        return ResponseEntity.ok(hqs);
+    }
 
 
 }

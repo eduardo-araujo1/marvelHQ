@@ -7,6 +7,7 @@ import com.eduardo.MarvelApi.repositories.HQRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +49,7 @@ public class HQService {
                 .orElseThrow(() -> new RuntimeException());
         return converter.toDTO(hq);
     }
-
+    @Transactional
     public HQDTO updateHQ(Long id, HQDTO hqdto) {
         HQ hq = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não existe nenhuma HQ com o ID fornecido: " + id));
@@ -64,4 +65,11 @@ public class HQService {
         HQ updatedHQ = repository.save(hq);
         return converter.toDTO(updatedHQ);
     }
+
+    @Transactional(readOnly = true)
+    public Page<HQDTO> findHQsByPrice(Double minPrice, Double maxPrice, Pageable pageable) {
+        return repository.findByPriceBetween(minPrice, maxPrice, pageable)
+                .map(converter::toDTO);
+    }
+
 }
