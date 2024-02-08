@@ -9,6 +9,7 @@ public class HQConverter {
 
     public HQ toModel(HQDTO dto) {
         HQ hq = new HQ();
+        hq.setId(dto.getId());
         hq.setName(dto.getName());
         hq.setAuthor(dto.getAuthor());
         hq.setSummary(dto.getSummary());
@@ -19,6 +20,7 @@ public class HQConverter {
 
     public HQDTO toDTO(HQ hq) {
         HQDTO dto = new HQDTO();
+        dto.setId(hq.getId());
         dto.setName(hq.getName());
         dto.setAuthor(hq.getAuthor());
         dto.setSummary(hq.getSummary());
