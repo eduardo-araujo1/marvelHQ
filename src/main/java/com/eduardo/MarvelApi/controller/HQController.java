@@ -1,6 +1,7 @@
 package com.eduardo.MarvelApi.controller;
 
 import com.eduardo.MarvelApi.dto.HQDTO;
+import com.eduardo.MarvelApi.model.Category;
 import com.eduardo.MarvelApi.services.HQService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,12 +46,20 @@ public class HQController {
         return ResponseEntity.ok(updateHqdto);
     }
 
-    @GetMapping("/filter")
+    @GetMapping("/price")
     public ResponseEntity<Page<HQDTO>> filterHQsByPrice(
             @RequestParam Double minPrice,
             @RequestParam Double maxPrice,
             Pageable pageable) {
         Page<HQDTO> hqs = service.findHQsByPrice(minPrice, maxPrice, pageable);
+        return ResponseEntity.ok(hqs);
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<Page<HQDTO>> filterHQsByCategory(
+            @RequestParam Category category,
+            Pageable pageable) {
+        Page<HQDTO> hqs = service.findHQsByCategory(category, pageable);
         return ResponseEntity.ok(hqs);
     }
 

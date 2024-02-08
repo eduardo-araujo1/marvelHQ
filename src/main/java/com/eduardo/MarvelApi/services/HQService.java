@@ -2,6 +2,7 @@ package com.eduardo.MarvelApi.services;
 
 import com.eduardo.MarvelApi.converter.HQConverter;
 import com.eduardo.MarvelApi.dto.HQDTO;
+import com.eduardo.MarvelApi.model.Category;
 import com.eduardo.MarvelApi.model.HQ;
 import com.eduardo.MarvelApi.repositories.HQRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,8 +48,33 @@ public class HQService {
     public HQDTO findByName(String name) {
         HQ hq = repository.findByName(name)
                 .orElseThrow(() -> new RuntimeException());
+
         return converter.toDTO(hq);
     }
+
+    @Transactional(readOnly = true)
+    public Page<HQDTO> findHQsByPrice(Double minPrice, Double maxPrice, Pageable pageable) {
+        Page<HQ> hqPage = repository.findByPriceBetween(minPrice, maxPrice, pageable);
+
+        if (hqPage.isEmpty()) {
+            throw new RuntimeException("Não encontramos produtos correspondentes a seleção.");
+        }
+
+        return hqPage.map(converter::toDTO);
+    }
+
+
+    @Transactional(readOnly = true)
+    public Page<HQDTO> findHQsByCategory(Category category, Pageable pageable) {
+        Page<HQ> hqPage = repository.findByCategory(category, pageable);
+
+        if (hqPage.isEmpty()) {
+            throw new RuntimeException("Nenhuma HQ foi encontrada nesta categoria.");
+        }
+
+        return hqPage.map(converter::toDTO);
+    }
+
     @Transactional
     public HQDTO updateHQ(Long id, HQDTO hqdto) {
         HQ hq = repository.findById(id)
@@ -64,12 +90,6 @@ public class HQService {
 
         HQ updatedHQ = repository.save(hq);
         return converter.toDTO(updatedHQ);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<HQDTO> findHQsByPrice(Double minPrice, Double maxPrice, Pageable pageable) {
-        return repository.findByPriceBetween(minPrice, maxPrice, pageable)
-                .map(converter::toDTO);
     }
 
 }
