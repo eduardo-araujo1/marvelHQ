@@ -15,6 +15,8 @@ public class HQConverter {
         hq.setSummary(dto.getSummary());
         hq.setYearOfPublication(dto.getYearOfPublication());
         hq.setImage(dto.getImage());
+        hq.setCategory(dto.getCategory());
+        hq.setPrice(dto.getPrice());
         return hq;
     }
 
@@ -26,6 +28,8 @@ public class HQConverter {
         dto.setSummary(hq.getSummary());
         dto.setYearOfPublication(hq.getYearOfPublication());
         dto.setImage(hq.getImage());
+        dto.setCategory(hq.getCategory());
+        dto.setPrice(hq.getPrice());
         return dto;
     }
 }

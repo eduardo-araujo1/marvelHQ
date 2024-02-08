@@ -1,5 +1,6 @@
 package com.eduardo.MarvelApi.dto;
 
+import com.eduardo.MarvelApi.model.Category;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -35,4 +36,11 @@ public class HQDTO {
 
     @NotBlank
     private String image;
+
+    @Positive
+    @NotNull
+    private Double price;
+
+    @NotNull
+    private Category category;
 }

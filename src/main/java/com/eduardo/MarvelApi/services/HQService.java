@@ -58,6 +58,8 @@ public class HQService {
         hq.setSummary(hqdto.getSummary());
         hq.setYearOfPublication(hqdto.getYearOfPublication());
         hq.setImage(hqdto.getImage());
+        hq.setPrice(hqdto.getPrice());
+        hq.setCategory(hqdto.getCategory());
 
         HQ updatedHQ = repository.save(hq);
         return converter.toDTO(updatedHQ);

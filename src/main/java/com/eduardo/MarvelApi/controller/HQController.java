@@ -44,4 +44,6 @@ public class HQController {
         return ResponseEntity.ok(updateHqdto);
     }
 
+
+
 }
