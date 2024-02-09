@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -63,5 +64,10 @@ public class HQController {
         return ResponseEntity.ok(hqs);
     }
 
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<HQDTO> deleteHQ(@PathVariable Long id){
+        service.deleteHQ(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 }
