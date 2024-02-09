@@ -3,6 +3,7 @@ package com.eduardo.MarvelApi.service;
 import com.eduardo.MarvelApi.converter.HQConverter;
 import com.eduardo.MarvelApi.dto.HQDTO;
 import com.eduardo.MarvelApi.exception.HQAlreadyRegistered;
+import com.eduardo.MarvelApi.exception.ResourceNotFoundException;
 import com.eduardo.MarvelApi.model.Category;
 import com.eduardo.MarvelApi.model.HQ;
 import com.eduardo.MarvelApi.repositories.HQRepository;
@@ -98,9 +99,92 @@ public class HQServiceTest {
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Erro ao buscar HQs");
 
-        // Verificação se o método findAll do repositório foi chamado com os parâmetros corretos
         verify(repository).findAll(PageRequest.of(0, 10));
     }
+
+    @Test
+    public void testFindByName_HQFound() {
+        when(repository.findByName(anyString())).thenReturn(Optional.of(mockEntityHQ));
+        when(converter.toDTO(mockEntityHQ)).thenReturn(mockHQDto);
+
+        HQDTO result = service.findByName(NAME);
+
+        assertThat(result).isEqualTo(mockHQDto);
+        verify(repository).findByName(NAME);
+    }
+
+    @Test
+    public void testFindByName_HQNotFound() {
+        when(repository.findByName(anyString())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.findByName(NAME))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("Infelizmente não temos esta HQ.");
+
+        verify(repository).findByName(NAME);
+    }
+
+    @Test
+    public void testFindHQsByPrice_Success() {
+        HQ mockHQ1 = HQTestUtil.createHQ();
+        HQ mockHQ2 = HQTestUtil.createHQ();
+
+        List<HQ> hqList = List.of(mockHQ1, mockHQ2);
+        Page<HQ> hqPage = new PageImpl<>(hqList);
+
+        when(repository.findByPriceBetween(any(Double.class), any(Double.class), any(Pageable.class))).thenReturn(hqPage);
+
+        HQDTO mockHQDto1 = HQTestUtil.createHQDTO();
+        HQDTO mockHQDto2 = HQTestUtil.createHQDTO();
+
+        when(converter.toDTO(mockHQ1)).thenReturn(mockHQDto1);
+        when(converter.toDTO(mockHQ2)).thenReturn(mockHQDto2);
+
+        Page<HQDTO> result = service.findHQsByPrice(10.0, 50.0, Pageable.unpaged());
+
+        assertThat(result.getContent()).containsExactly(mockHQDto1, mockHQDto2);
+    }
+
+    @Test
+    public void testFindHQsByPrice_NoHQsFound() {
+        when(repository.findByPriceBetween(any(Double.class), any(Double.class), any(Pageable.class))).thenReturn(Page.empty());
+
+        assertThatThrownBy(() -> service.findHQsByPrice(10.0, 50.0, Pageable.unpaged()))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("Não encontramos produtos correspondentes a seleção.");
+    }
+
+    @Test
+    public void testFindHQsByCategory_Success() {
+        HQ mockHQ1 = HQTestUtil.createHQ();
+        HQ mockHQ2 = HQTestUtil.createHQ();
+
+        List<HQ> hqList = List.of(mockHQ1, mockHQ2);
+        Page<HQ> hqPage = new PageImpl<>(hqList);
+
+        when(repository.findByCategory(any(Category.class), any(Pageable.class))).thenReturn(hqPage);
+
+        HQDTO mockHQDto1 = HQTestUtil.createHQDTO();
+        HQDTO mockHQDto2 = HQTestUtil.createHQDTO();
+
+        when(converter.toDTO(mockHQ1)).thenReturn(mockHQDto1);
+        when(converter.toDTO(mockHQ2)).thenReturn(mockHQDto2);
+
+        Page<HQDTO> result = service.findHQsByCategory(Category.OUTROS, Pageable.unpaged());
+
+        assertThat(result.getContent()).containsExactly(mockHQDto1, mockHQDto2);
+    }
+
+    @Test
+    public void testFindHQsByCategory_NoHQsFound() {
+        when(repository.findByCategory(any(Category.class), any(Pageable.class))).thenReturn(Page.empty());
+
+        assertThatThrownBy(() -> service.findHQsByCategory(Category.OUTROS, Pageable.unpaged()))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("Nenhuma HQ foi encontrada nesta categoria.");
+    }
+
+
 }
 
 

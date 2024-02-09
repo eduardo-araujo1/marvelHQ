@@ -56,7 +56,6 @@ public class HQService {
         if (hqPage.isEmpty()) {
             throw new ResourceNotFoundException("Não encontramos produtos correspondentes a seleção.");
         }
-
         return hqPage.map(converter::toDTO);
     }
 
@@ -67,7 +66,6 @@ public class HQService {
         if (hqPage.isEmpty()) {
             throw new ResourceNotFoundException("Nenhuma HQ foi encontrada nesta categoria.");
         }
-
         return hqPage.map(converter::toDTO);
     }
 
@@ -88,8 +86,8 @@ public class HQService {
         return converter.toDTO(updatedHQ);
     }
 
-    public void deleteHQ(Long id){
-        if (!repository.existsById(id)){
+    public void deleteHQ(Long id) {
+        if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("HQ não encontrada.");
         }
         repository.deleteById(id);
