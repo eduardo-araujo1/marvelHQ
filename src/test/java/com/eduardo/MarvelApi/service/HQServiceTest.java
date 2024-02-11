@@ -184,6 +184,50 @@ public class HQServiceTest {
                 .hasMessage("Nenhuma HQ foi encontrada nesta categoria.");
     }
 
+    @Test
+    public void testUpdateHQ_Success() {
+        when(repository.findById(anyLong())).thenReturn(Optional.of(mockEntityHQ));
+
+        when(repository.save(mockEntityHQ)).thenReturn(mockEntityHQ);
+        when(converter.toDTO(mockEntityHQ)).thenReturn(mockHQDto);
+
+        HQDTO result = service.updateHQ(1L, mockHQDto);
+
+        assertThat(result).isEqualTo(mockHQDto);
+        verify(repository).findById(1L);
+        verify(repository).save(mockEntityHQ);
+    }
+
+    @Test
+    public void testUpdateHQ_HQNotFound() {
+        when(repository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.updateHQ(1L, HQTestUtil.createHQDTO()))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("Não existe nenhuma HQ com o ID fornecido: 1");
+
+        verify(repository, never()).save(any(HQ.class));
+    }
+
+    @Test
+    public void testDeleteHQ_Success() {
+        when(repository.existsById(1L)).thenReturn(true);
+
+        service.deleteHQ(1L);
+
+        verify(repository).deleteById(1L);
+    }
+
+    @Test
+    public void testDeleteHQ_HQNotFound() {
+        when(repository.existsById(1L)).thenReturn(false);
+
+        assertThatThrownBy(() -> service.deleteHQ(1L))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("HQ não encontrada.");
+
+        verify(repository, never()).deleteById(1L);
+    }
 
 }
 
