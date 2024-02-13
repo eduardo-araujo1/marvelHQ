@@ -28,6 +28,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -191,6 +192,26 @@ public class HQControllerTest {
                         .param("page", "0")
                         .param("size", "10")
                         .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testDeleteHQ_Success() throws Exception {
+        Long hqId = 1L;
+
+        mockMvc.perform(delete("/hq/delete/{id}", hqId))
+                .andExpect(status().isNoContent());
+
+        verify(service).deleteHQ(hqId);
+    }
+
+    @Test
+    public void testDeleteHQ_NotFound() throws Exception {
+        Long nonExistentHQId = 10L;
+
+        doThrow(new ResourceNotFoundException("HQ não encontrada")).when(service).deleteHQ(nonExistentHQId);
+
+        mockMvc.perform(delete("/hq/delete/{id}", nonExistentHQId))
                 .andExpect(status().isNotFound());
     }
 
