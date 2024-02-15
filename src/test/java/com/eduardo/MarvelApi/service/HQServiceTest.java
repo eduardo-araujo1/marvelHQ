@@ -4,7 +4,7 @@ import com.eduardo.MarvelApi.converter.HQConverter;
 import com.eduardo.MarvelApi.dto.HQDTO;
 import com.eduardo.MarvelApi.exception.HQAlreadyRegistered;
 import com.eduardo.MarvelApi.exception.ResourceNotFoundException;
-import com.eduardo.MarvelApi.model.Category;
+import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.model.HQ;
 import com.eduardo.MarvelApi.repositories.HQRepository;
 import com.eduardo.MarvelApi.services.HQService;

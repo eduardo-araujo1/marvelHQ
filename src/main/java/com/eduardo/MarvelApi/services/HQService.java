@@ -4,7 +4,7 @@ import com.eduardo.MarvelApi.converter.HQConverter;
 import com.eduardo.MarvelApi.dto.HQDTO;
 import com.eduardo.MarvelApi.exception.HQAlreadyRegistered;
 import com.eduardo.MarvelApi.exception.ResourceNotFoundException;
-import com.eduardo.MarvelApi.model.Category;
+import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.model.HQ;
 import com.eduardo.MarvelApi.repositories.HQRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 

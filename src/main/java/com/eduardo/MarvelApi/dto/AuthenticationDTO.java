@@ -1,5 +1,7 @@
 package com.eduardo.MarvelApi.dto;
 
-public record AuthenticationDTO(String email, String password) {
+import jakarta.validation.constraints.NotNull;
+
+public record AuthenticationDTO(@NotNull String email, @NotNull String password) {
 
 }

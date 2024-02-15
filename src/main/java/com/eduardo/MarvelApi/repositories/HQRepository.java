@@ -1,6 +1,6 @@
 package com.eduardo.MarvelApi.repositories;
 
-import com.eduardo.MarvelApi.model.Category;
+import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.model.HQ;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

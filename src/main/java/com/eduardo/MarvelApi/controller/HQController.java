@@ -1,7 +1,7 @@
 package com.eduardo.MarvelApi.controller;
 
 import com.eduardo.MarvelApi.dto.HQDTO;
-import com.eduardo.MarvelApi.model.Category;
+import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.services.HQService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

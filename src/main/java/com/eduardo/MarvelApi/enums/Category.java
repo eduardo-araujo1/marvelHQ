@@ -1,4 +1,4 @@
-package com.eduardo.MarvelApi.model;
+package com.eduardo.MarvelApi.enums;
 
 public enum Category {
     UNIVERSO_VINGADORES,

@@ -1,5 +1,6 @@
 package com.eduardo.MarvelApi.model;
 
+import com.eduardo.MarvelApi.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

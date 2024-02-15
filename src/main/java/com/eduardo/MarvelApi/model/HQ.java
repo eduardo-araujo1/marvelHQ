@@ -1,5 +1,6 @@
 package com.eduardo.MarvelApi.model;
 
+import com.eduardo.MarvelApi.enums.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

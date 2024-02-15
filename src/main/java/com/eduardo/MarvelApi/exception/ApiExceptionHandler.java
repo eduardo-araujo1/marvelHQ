@@ -19,4 +19,16 @@ public class ApiExceptionHandler {
         ApiErrorMessage threatResponse = new ApiErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatResponse);
     }
+
+    @ExceptionHandler(AuthenticationFailureException.class)
+    public ResponseEntity<ApiErrorMessage> authenticationFailure(AuthenticationFailureException exception){
+        ApiErrorMessage threatResponse = new ApiErrorMessage(HttpStatus.UNAUTHORIZED, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(threatResponse);
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ApiErrorMessage> userAlreadyExists(UserAlreadyExistsException exception){
+        ApiErrorMessage threatResponse = new ApiErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(threatResponse);
+    }
 }

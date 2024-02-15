@@ -1,6 +1,7 @@
 package com.eduardo.MarvelApi.dto;
 
-import com.eduardo.MarvelApi.model.UserRole;
+import com.eduardo.MarvelApi.enums.UserRole;
+import jakarta.validation.constraints.NotNull;
 
-public record RegisterDTO(String name, String email, String password, UserRole role) {
+public record RegisterDTO(@NotNull String name, @NotNull String email,@NotNull String password,@NotNull UserRole role) {
 }
