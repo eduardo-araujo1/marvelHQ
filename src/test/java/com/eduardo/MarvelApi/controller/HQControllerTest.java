@@ -1,9 +1,9 @@
 package com.eduardo.MarvelApi.controller;
 
 import com.eduardo.MarvelApi.dto.HQDTO;
+import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.exception.HQAlreadyRegistered;
 import com.eduardo.MarvelApi.exception.ResourceNotFoundException;
-import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.services.HQService;
 import com.eduardo.MarvelApi.util.HQTestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;

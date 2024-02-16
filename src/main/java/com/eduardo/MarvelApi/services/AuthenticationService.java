@@ -6,7 +6,6 @@ import com.eduardo.MarvelApi.exception.AuthenticationFailureException;
 import com.eduardo.MarvelApi.exception.UserAlreadyExistsException;
 import com.eduardo.MarvelApi.infra.TokenService;
 import com.eduardo.MarvelApi.model.User;
-import com.eduardo.MarvelApi.enums.UserRole;
 import com.eduardo.MarvelApi.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,19 +22,18 @@ public class AuthenticationService implements UserDetailsService {
     private final TokenService tokenService;
     private final PasswordEncoder passwordEncoder;
 
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username);
     }
 
     public String login(AuthenticationDTO authenticationDTO) {
-        UserDetails userDetails = loadUserByUsername(authenticationDTO.email());
+        User user = loadUserByUsername(authenticationDTO.email());
 
-        if (userDetails == null || !passwordEncoder.matches(authenticationDTO.password(), userDetails.getPassword())) {
+        if (user == null || !passwordEncoder.matches(authenticationDTO.password(), user.getPassword())) {
             throw new AuthenticationFailureException("Email ou senha inválidos.");
         }
-        return tokenService.generateToken((User) userDetails);
+        return tokenService.generateToken(user);
     }
 
     public void register(RegisterDTO registerDTO) {

@@ -2,9 +2,9 @@ package com.eduardo.MarvelApi.service;
 
 import com.eduardo.MarvelApi.converter.HQConverter;
 import com.eduardo.MarvelApi.dto.HQDTO;
+import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.exception.HQAlreadyRegistered;
 import com.eduardo.MarvelApi.exception.ResourceNotFoundException;
-import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.model.HQ;
 import com.eduardo.MarvelApi.repositories.HQRepository;
 import com.eduardo.MarvelApi.services.HQService;
@@ -24,9 +24,8 @@ import java.util.Optional;
 
 import static com.eduardo.MarvelApi.util.HQTestUtil.NAME;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
