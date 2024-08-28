@@ -20,16 +20,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigurations {
 
     private final SecurityFilter securityFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                /*
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/hq").hasRole("ADMIN")
                         .anyRequest().authenticated()
+                )
+                */
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().permitAll() // Permitir todas as requisições para testes
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

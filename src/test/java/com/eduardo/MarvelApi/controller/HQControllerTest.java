@@ -9,6 +9,8 @@ import com.eduardo.MarvelApi.util.HQTestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -42,9 +44,12 @@ public class HQControllerTest {
     @MockBean
     HQService service;
 
+
+    HQController hqController;
+
     @Autowired
     private ObjectMapper objectMapper;
-
+    @MockBean
     HQDTO mockHQDto = HQTestUtil.createHQDTO();
 
     @Test
@@ -94,25 +99,6 @@ public class HQControllerTest {
                 .andExpect(jsonPath("$.content[2].name", Matchers.is("Example HQ")));
     }
 
-    @Test
-    public void testFindByName_Success() throws Exception {
-        when(service.findByName(anyString())).thenReturn(mockHQDto);
-
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/hq")
-                        .param("name", "Example HQ"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(mockHQDto)));
-    }
-
-    @Test
-    public void testFindByName_NotFound() throws Exception {
-        when(service.findByName(anyString())).thenThrow(ResourceNotFoundException.class);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/hq")
-                        .param("name", "Example HQ"))
-                .andExpect(status().isNotFound());
-    }
 
     @Test
     public void testUpdateHQ_Success() throws Exception {

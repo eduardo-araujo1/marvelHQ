@@ -5,6 +5,8 @@ import com.eduardo.MarvelApi.model.HQ;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -16,4 +18,7 @@ public interface HQRepository extends JpaRepository<HQ,Long> {
     Page<HQ> findByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
 
     Page<HQ> findByCategory(Category category, Pageable pageable);
+
+    @Query("SELECT h FROM HQ h WHERE h.name LIKE %:keyword%")
+    Page<HQ> findByNameContaining(@Param("keyword") String keyword, Pageable pageable);
 }

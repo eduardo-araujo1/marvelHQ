@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -71,7 +70,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testRegister_NewUser() {
-        RegisterDTO registerDTO = new RegisterDTO("Teste", "teste@example.com", "password", UserRole.USER);
+        RegisterDTO registerDTO = new RegisterDTO("Teste", "teste@example.com", "password");
         when(userRepository.findByEmail(registerDTO.email())).thenReturn(null);
         when(passwordEncoder.encode(registerDTO.password())).thenReturn("encodedPassword");
 
@@ -80,14 +79,13 @@ public class AuthenticationServiceTest {
         verify(userRepository).save(argThat(user ->
                 user.getName().equals(registerDTO.name()) &&
                         user.getEmail().equals(registerDTO.email()) &&
-                        user.getPassword().equals("encodedPassword") &&
-                        user.getRole().equals(registerDTO.role())
+                        user.getPassword().equals("encodedPassword")
         ));
     }
 
     @Test
     public void testRegister_UserAlreadyExists() {
-        RegisterDTO registerDTO = new RegisterDTO("Teste", "teste@example.com", "password", UserRole.USER);
+        RegisterDTO registerDTO = new RegisterDTO("Teste", "teste@example.com", "password");
 
         when(userRepository.findByEmail(registerDTO.email())).thenReturn(new User());
 

@@ -42,9 +42,14 @@ public class HQService {
         return hqPage.map(converter::toDTO);
     }
 
-    public HQDTO findByName(String name) {
-        HQ hq = repository.findByName(name)
-                .orElseThrow(() -> new ResourceNotFoundException("Infelizmente não temos esta HQ."));
+    public Page<HQDTO> searchByName(String keyword, Pageable pageable) {
+        Page<HQ> hqs = repository.findByNameContaining(keyword, pageable);
+        return hqs.map(converter::toDTO);
+    }
+
+    public HQDTO findById(Long id) {
+        HQ hq = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado."));
 
         return converter.toDTO(hq);
     }

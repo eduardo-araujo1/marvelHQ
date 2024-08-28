@@ -43,4 +43,7 @@ public class HQDTO {
 
     @NotNull
     private Category category;
+
+    @NotNull
+    private Integer quantity;
 }

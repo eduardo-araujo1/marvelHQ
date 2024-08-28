@@ -14,6 +14,8 @@ public class HQTestUtil {
     public static Double PRICE = 20.99;
     public static Category CATEGORY = Category.OUTROS;
 
+    public static Integer QUANTITY = 100;
+
     public static HQDTO createHQDTO() {
         HQDTO mockHQDto = new HQDTO();
         mockHQDto.setName(NAME);
@@ -23,6 +25,7 @@ public class HQTestUtil {
         mockHQDto.setImage(IMAGE);
         mockHQDto.setCategory(CATEGORY);
         mockHQDto.setPrice(PRICE);
+        mockHQDto.setQuantity(QUANTITY);
         return mockHQDto;
     }
 
@@ -35,6 +38,7 @@ public class HQTestUtil {
         mockEntityHQ.setImage(IMAGE);
         mockEntityHQ.setCategory(CATEGORY);
         mockEntityHQ.setPrice(PRICE);
+        mockEntityHQ.setQuantity(QUANTITY);
         return mockEntityHQ;
     }
 }

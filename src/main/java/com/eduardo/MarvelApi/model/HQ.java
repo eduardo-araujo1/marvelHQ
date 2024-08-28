@@ -39,4 +39,7 @@ public class HQ {
 
     @Column(name = "price")
     private Double price;
+
+    @Column(name = "quantity")
+    private Integer quantity;
 }

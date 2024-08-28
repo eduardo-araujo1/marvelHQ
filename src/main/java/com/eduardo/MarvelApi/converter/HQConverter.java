@@ -17,6 +17,7 @@ public class HQConverter {
         hq.setImage(dto.getImage());
         hq.setCategory(dto.getCategory());
         hq.setPrice(dto.getPrice());
+        hq.setQuantity(dto.getQuantity());
         return hq;
     }
 
@@ -30,6 +31,7 @@ public class HQConverter {
         dto.setImage(hq.getImage());
         dto.setCategory(hq.getCategory());
         dto.setPrice(hq.getPrice());
+        dto.setQuantity(hq.getQuantity());
         return dto;
     }
 }

@@ -30,14 +30,21 @@ public class HQController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Page<HQDTO>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+    public ResponseEntity<Page<HQDTO>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "9") int size){
         Page<HQDTO> returnAll = service.findAll(page,size);
         return ResponseEntity.ok().body(returnAll);
     }
 
     @GetMapping(params = "name")
-    public ResponseEntity<HQDTO> findByName(@RequestParam("name") String name){
-        var hqDto = service.findByName(name);
+    public ResponseEntity<Page<HQDTO>> findByName(@RequestParam("name") String name,
+                                                  Pageable pageable) {
+        Page<HQDTO> hqDto = service.searchByName(name, pageable);
+        return ResponseEntity.ok().body(hqDto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HQDTO> findById(@PathVariable("id") Long id){
+        var hqDto = service.findById(id);
         return ResponseEntity.ok().body(hqDto);
     }
 

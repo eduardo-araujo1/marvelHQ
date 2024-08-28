@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -103,24 +104,24 @@ public class HQServiceTest {
 
     @Test
     public void testFindByName_HQFound() {
-        when(repository.findByName(anyString())).thenReturn(Optional.of(mockEntityHQ));
+        Page<HQ> hqPage = new PageImpl<>(Collections.singletonList(mockEntityHQ));
+        when(repository.findByNameContaining(anyString(), any(Pageable.class))).thenReturn(hqPage);
         when(converter.toDTO(mockEntityHQ)).thenReturn(mockHQDto);
 
-        HQDTO result = service.findByName(NAME);
+        Page<HQDTO> result = service.searchByName(NAME, Pageable.unpaged());
 
-        assertThat(result).isEqualTo(mockHQDto);
-        verify(repository).findByName(NAME);
+        assertThat(result.getContent()).containsExactly(mockHQDto);
+        verify(repository).findByNameContaining(NAME, Pageable.unpaged());
     }
 
     @Test
     public void testFindByName_HQNotFound() {
-        when(repository.findByName(anyString())).thenReturn(Optional.empty());
+        when(repository.findByNameContaining(anyString(), any(Pageable.class))).thenReturn(new PageImpl<>(Collections.emptyList()));
 
-        assertThatThrownBy(() -> service.findByName(NAME))
-                .isInstanceOf(ResourceNotFoundException.class)
-                .hasMessage("Infelizmente não temos esta HQ.");
+        Page<HQDTO> result = service.searchByName(NAME, Pageable.unpaged());
 
-        verify(repository).findByName(NAME);
+        assertThat(result.getContent()).isEmpty();
+        verify(repository).findByNameContaining(NAME, Pageable.unpaged());
     }
 
     @Test

@@ -8,7 +8,6 @@ import com.eduardo.MarvelApi.infra.TokenService;
 import com.eduardo.MarvelApi.model.User;
 import com.eduardo.MarvelApi.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +41,7 @@ public class AuthenticationService implements UserDetailsService {
             throw new UserAlreadyExistsException("O usuário com o e-mail fornecido já existe.");
         }
         String encryptedPassword = passwordEncoder.encode(registerDTO.password());
-        User newUser = new User(registerDTO.name(), email, encryptedPassword, registerDTO.role());
+        User newUser = new User(registerDTO.name(), email, encryptedPassword);
         userRepository.save(newUser);
     }
 }

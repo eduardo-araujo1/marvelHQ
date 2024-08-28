@@ -38,11 +38,11 @@ public class User implements UserDetails {
     @Column(name = "roles")
     private UserRole role;
 
-    public User(String name, String email, String password, UserRole role) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = UserRole.USER;
     }
 
     @Override
