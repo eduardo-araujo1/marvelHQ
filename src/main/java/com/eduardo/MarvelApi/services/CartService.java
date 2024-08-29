@@ -6,8 +6,6 @@ import com.eduardo.MarvelApi.repositories.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class CartService {
