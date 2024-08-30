@@ -27,7 +27,7 @@ public class HQ {
     @Column(name = "summary")
     private String summary;
 
-    @Column(name = "yearOfPublication")
+    @Column(name = "year_of_publication")
     private Integer yearOfPublication;
 
     @Column(name = "image")
