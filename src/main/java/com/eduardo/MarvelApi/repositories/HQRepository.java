@@ -9,13 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 @Repository
 public interface HQRepository extends JpaRepository<HQ,Long> {
 
     Optional<HQ> findByName(String name);
 
-    Page<HQ> findByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
+    Page<HQ> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
 
     Page<HQ> findByCategory(Category category, Pageable pageable);
 

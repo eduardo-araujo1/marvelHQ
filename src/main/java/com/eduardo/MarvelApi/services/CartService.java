@@ -20,12 +20,12 @@ public class CartService {
 
     public Cart getCartById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cart with id " + id + " not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Carrinho com o ID " + id + " não encontrado"));
     }
 
     public void deleteCart(Long id) {
         if (!repository.existsById(id)) {
-            throw new ResourceNotFoundException("Cart with id " + id + " not found.");
+            throw new ResourceNotFoundException("Carrinho com o ID " + id + " não encontrado");
         }
         repository.deleteById(id);
     }

@@ -4,6 +4,8 @@ import com.eduardo.MarvelApi.dto.HQDTO;
 import com.eduardo.MarvelApi.enums.Category;
 import com.eduardo.MarvelApi.model.HQ;
 
+import java.math.BigDecimal;
+
 public class HQTestUtil {
 
     public static String NAME = "Example HQ";
@@ -11,7 +13,7 @@ public class HQTestUtil {
     public static String SUMMARY = "SUMMARY";
     public static Integer YEAR_OF_PUBLICATION = 2024;
     public static String IMAGE = "example_image.jpg";
-    public static Double PRICE = 20.99;
+    public static BigDecimal PRICE = BigDecimal.valueOf(20.99);
     public static Category CATEGORY = Category.OUTROS;
 
     public static Integer QUANTITY = 100;

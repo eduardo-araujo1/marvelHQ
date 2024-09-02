@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +33,7 @@ public class CartServiceTest {
     public void testCreateCart_Success() {
         Cart inputCart = new Cart();
         List<CartItem> items = new ArrayList<>();
-        items.add(new CartItem(1L, "Product 1", "image1.jpg", 10.0, 2));
+        items.add(new CartItem(1L, "Product 1", "image1.jpg", new BigDecimal("10.0"), 2));
         inputCart.setItems(items);
 
         Cart savedCart = new Cart();

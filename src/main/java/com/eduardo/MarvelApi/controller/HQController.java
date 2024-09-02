@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 
 @RestController
@@ -97,8 +98,8 @@ public class HQController {
 
     @GetMapping("/price")
     public ResponseEntity<Page<HQDTO>> filterHQsByPrice(
-            @RequestParam Double minPrice,
-            @RequestParam Double maxPrice,
+            @RequestParam BigDecimal minPrice,
+            @RequestParam BigDecimal maxPrice,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "9") int size) {
 

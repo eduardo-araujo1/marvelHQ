@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -39,7 +41,7 @@ public class HQDTO {
 
     @Positive(message = "O valor não pode ser negativo")
     @NotNull
-    private Double price;
+    private BigDecimal price;
 
     @NotNull
     private Category category;

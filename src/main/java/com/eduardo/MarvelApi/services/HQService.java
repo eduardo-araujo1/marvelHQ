@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -54,7 +55,7 @@ public class HQService {
         return converter.toDTO(hq);
     }
 
-    public Page<HQDTO> findHQsByPrice(Double minPrice, Double maxPrice, Pageable pageable) {
+    public Page<HQDTO> findHQsByPrice(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
         Page<HQ> hqPage = repository.findByPriceBetween(minPrice, maxPrice, pageable);
 
         if (hqPage.isEmpty()) {
