@@ -13,7 +13,7 @@
 
 ## Rodando o Projeto com Docker
 
-1. **Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.**
+1. **Certifique-se de ter o Docker instalado em sua máquina.**
 
 2. **Construa e inicie os containers:**
 
