@@ -5,6 +5,7 @@ services:
     image: mysql:8.0
     container_name: mysql
     environment:
+      MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: api_marvel
       MYSQL_USER: springstudent
       MYSQL_PASSWORD: springstudent
@@ -18,6 +19,7 @@ services:
   apihqshop:
     image: edusoares/apihqshop:v2.0
     container_name: apihqshop
+    restart: always
     ports:
       - "8080:8080"
     environment:

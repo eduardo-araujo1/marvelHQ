@@ -4,7 +4,6 @@
 
 - **Java 17:**
 - **Spring Boot 3.2.2:**
-- **Maven 3.9.6:**
 - **MySQL 8.0:** 
 - **Flyway:**
 - **Spring Security:** 
